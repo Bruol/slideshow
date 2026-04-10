@@ -1,75 +1,41 @@
-# React + TypeScript + Vite
+# Slideshow
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Minimal full-screen React slideshow viewer for local media in `public/`.
 
-Currently, two official plugins are available:
+## Usage
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+1. Put image or video files anywhere under `public/`.
+2. Run `bun dev`.
+3. Use the left and right arrow keys to move through the slideshow.
 
-## React Compiler
+Media files are sorted lexicographically by path before display.
 
-The React Compiler is enabled on this template. See [this documentation](https://react.dev/learn/react-compiler) for more information.
+## Supported formats
 
-Note: This will impact Vite dev & build performances.
+Images:
 
-## Expanding the ESLint configuration
+- `apng`
+- `avif`
+- `bmp`
+- `gif`
+- `jpeg`
+- `jpg`
+- `png`
+- `webp`
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+Videos:
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+- `m4v`
+- `mov`
+- `mp4`
+- `ogv`
+- `webm`
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
+Playback uses the browser's native image and video support. If a file does not decode in the browser, it will not render correctly even if the extension is listed here.
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+## Notes
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
-
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
-
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+- The viewer fills the viewport with a black background.
+- There are no visible controls or buttons.
+- Videos loop automatically and try to play with sound after your first arrow-key interaction.
+- Changing files under `public/` during development triggers a reload so the media list stays up to date.
